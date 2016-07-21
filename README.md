@@ -6,5 +6,5 @@ This software is introduced in the paper:
 *Early and Reliable Event Detection Using Proximity Space Representation*, by M Sangnier, J Gauthier, A Rakotomamonjy (ICML 2016).
 
 
-== Requirements
+## Requirements
 [LPsolve](https://sourceforge.net/projects/lpsolve/)
