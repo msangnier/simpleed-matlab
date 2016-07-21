@@ -1,0 +1,33 @@
+% 20-Jul-2016
+
+function res = eval_earliness(db_test, model, opt, leg)    
+    % Prediction
+    [~, ~, decisions, decisions_time, labels] = ...
+        edpredict(db_test, model, opt);
+
+    % Scores
+    [xamoc, yamoc, auamoc] = timetodetection(decisions_time, labels);
+    auroc = aucscore(decisions, labels, model.Label(1));
+    
+    % Default legend
+    if (nargin < 4)
+        if strcmpi(opt.kernel, 'simfull')
+            leg = ['SimpleED relaxed (pen: ', num2str(opt.D), ...
+                ', max weight: ', num2str(opt.nsvm_high_weight), ... 
+                ')   -   AUAMOC: ', num2str(auamoc), ...
+                ', AUROC: ', num2str(auroc)];
+        elseif strcmpifirst(opt.kernel, 'mmed')
+            leg = ['MMED', '   -   AUAMOC: ', num2str(auamoc), ...
+                ', AUROC: ', num2str(auroc)];
+        else
+             leg = ['Early detection (', opt.kernel,')'];
+        end
+    end
+
+    res = struct('auroc', auroc, ...
+        'auamoc', auamoc, ...
+        'train_time', model.train_time, ...
+        'xamoc', xamoc, ...
+        'yamoc', yamoc, ...
+        'leg', leg);
+end
