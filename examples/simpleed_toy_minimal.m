@@ -4,7 +4,6 @@
 % 21-Jul-2016
 
 clear all;
-close all;
 
 % Libraries
 addpath ../core/utils;
@@ -23,13 +22,16 @@ fprintf('Number of variables: %d\n\n', size(db.data, 2));
 
 %% Options
 opt = default_opt();
+% Set opt.forecast = false not to use the reliable proxy
 opt.class_detection = 'chirp1';
-opt.C = 2^8;
+opt.C = 2^8; % Trade-off parameter on the cost function
+opt.D = 2; % Penalization parameter for the negative weights
+opt.nsvm_high_weight = 8; % Highest weight of the L1-norm
 
 
 %% Preprocess database
 [db, opt.labels] = encode_classes(db, opt.class_detection, opt.class_vs);
-[db_training, db_test] = create_partitions(db, opt.ratio, [], ...
+[db_training, db_test] = create_partitions(db, opt.ratio, 1, ...
     opt.training_balance);
 [db_training, opt] = preprocess_training(db_training, opt);
 

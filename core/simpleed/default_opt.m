@@ -11,7 +11,7 @@ function opt = default_opt()
     opt.forecast = true; % Use the reliable proxy
     opt.C = 1; % Trade-off parameter on the cost function
     opt.D = 0; % Penalization parameter for the negative weights
-    opt.gamma = 2^-1; % Kernel parameter for simfull.
+    opt.gamma = 0.1233; % Kernel parameter for simfull.
     opt.nsvm_high_weight = 1; % Highest weight of the L1-norm
     opt.dec_landmarks = 2; % Decimation training instances -> landmarks
 

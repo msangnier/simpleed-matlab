@@ -8,3 +8,5 @@ This software is introduced in the paper:
 
 ## Requirements
 [LPsolve](https://sourceforge.net/projects/lpsolve/)
+
+On Linux, make LPsolve available by adding *export LD_LIBRARY_PATH=[path_to_lpsolve]* to your bashrc.
